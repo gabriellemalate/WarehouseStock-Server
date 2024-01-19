@@ -30,5 +30,8 @@ app.get("/", (_req, res) => {
 const inventoryRoutes = require("./routes/inventory-routes");
 app.use("/inventory", inventoryRoutes);
 
+const warehousesRoutes = require("./routes/warehouses-routes");
+app.use('/warehouses', warehousesRoutes);
+
 // Spin up server
 app.listen(PORT, () => console.log(`running at http://localhost:${PORT}`));

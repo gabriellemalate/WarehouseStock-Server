@@ -51,22 +51,26 @@ const updateWarehouse = async (req, res) => {
     }
 
     try {
-        const result = await knex('warehouses')
+        const rowsUpdated = await knex('warehouses')
             .where({ id: req.params.id })
             .update(req.body);
         
-        const newUserId = result[0];
+        if (rowsUpdated === 0) {
+            return res.status(404).json({
+                message: `User with ID ${req.params.id} not found`
+            });
+        }
 
-        const createdWarehouse = await knex
+        const updatedWarehouse = await knex
             .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_email")
             .from("warehouses")
-            .where({ id: newUserId});
+            .where({ id: req.params.id });
 
-        res.status(201).json(createdWarehouse);
+        res.status(200).json(updatedWarehouse);
 
     } catch (error) {
         res.status(500).json({
-            message: `Unable to update warehouse: ${error}`
+            message: `Unable to update warehouse with ID ${req.params.id}: ${error}`
         })
     }
 }

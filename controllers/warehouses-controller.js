@@ -22,7 +22,7 @@ const createWarehouse = async (req, res) => {
         const newUserId = result[0];
 
         const createdWarehouse = await knex
-            .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_email")
+            .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_phone", "contact_email")
             .from("warehouses")
             .where({ id: newUserId});
 
@@ -62,7 +62,7 @@ const updateWarehouse = async (req, res) => {
         }
 
         const updatedWarehouse = await knex
-            .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_email")
+            .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_phone", "contact_email")
             .from("warehouses")
             .where({ id: req.params.id });
 

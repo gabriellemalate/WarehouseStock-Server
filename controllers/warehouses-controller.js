@@ -75,6 +75,20 @@ const updateWarehouse = async (req, res) => {
     }
 }
 
+const getWarehouseById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const warehouse = await knex('warehouses').where({ id }).first();
+
+        if (!warehouse) {
+            // If the warehouse with the specified ID is not found, send a 404 response
+            return res.status(404).json({ message: 'Warehouse not found' });
+        }
+        res.status(200).json(warehouse);
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to get warehouse' });
+    }
+}
 const getWarehouseInventory = async (req, res) => {
     try {
         const data = await knex("inventories")
@@ -90,5 +104,6 @@ const getWarehouseInventory = async (req, res) => {
 module.exports = {
     createWarehouse,
     updateWarehouse,
+    getWarehouseById,
     getWarehouseInventory
 };

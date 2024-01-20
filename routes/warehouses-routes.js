@@ -4,7 +4,7 @@ const warehouseController = require('../controllers/warehouses-controller');
 router.route('/')
     .post(warehouseController.createWarehouse);
 
-    router.route('/:id')
+router.route('/:id')
     .get(warehouseController.getWarehouseById)
     .put(warehouseController.updateWarehouse);
 

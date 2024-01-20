@@ -19,7 +19,7 @@ app.use(express.json());
 
 // Print to console whenever anyone hits any endpoint on the server
 app.use((req, _res, next) => {
-    const moment = new Date(Date.now()) 
+    const moment = new Date(Date.now())
     console.log("hit for", req.originalUrl, "at", moment.toLocaleString('en-US', { timeZone: 'America/New_York' }));
     next();
 })

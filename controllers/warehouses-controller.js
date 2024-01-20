@@ -2,9 +2,9 @@ const knex = require("knex")(require("../knexfile"));
 const { emailIsValid, phoneNumberIsValid } = require("../utils/validationUtils");
 
 const createWarehouse = async (req, res) => {
-    let {warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email} =  req.body;
+    let { warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email } = req.body;
 
-    if( !warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
+    if (!warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
         res.status(400).json({
             message: "Please provide warehouse name, street address, city, country, warehouse contact name, contact position, contact phone number, and contact email in the request"
         })
@@ -18,13 +18,13 @@ const createWarehouse = async (req, res) => {
 
     try {
         const result = await knex('warehouses').insert(req.body);
-        
+
         const newUserId = result[0];
 
         const createdWarehouse = await knex
             .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_phone", "contact_email")
             .from("warehouses")
-            .where({ id: newUserId});
+            .where({ id: newUserId });
 
         res.status(201).json(createdWarehouse);
 
@@ -36,9 +36,9 @@ const createWarehouse = async (req, res) => {
 }
 
 const updateWarehouse = async (req, res) => {
-    let {warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email} =  req.body;
+    let { warehouse_name, address, city, country, contact_name, contact_position, contact_phone, contact_email } = req.body;
 
-    if( !warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
+    if (!warehouse_name || !address || !city || !country || !contact_name || !contact_position || !contact_phone || !contact_email) {
         res.status(400).json({
             message: "Please provide warehouse name, street address, city, country, warehouse contact name, contact position, contact phone number, and contact email in the request"
         })
@@ -54,7 +54,7 @@ const updateWarehouse = async (req, res) => {
         const rowsUpdated = await knex('warehouses')
             .where({ id: req.params.id })
             .update(req.body);
-        
+
         if (rowsUpdated === 0) {
             return res.status(404).json({
                 message: `User with ID ${req.params.id} not found`
@@ -94,7 +94,7 @@ const getWarehouseInventory = async (req, res) => {
         const data = await knex("inventories")
             .join("warehouses", "warehouse_id", "warehouses.id")
             .select("inventories.id", "item_name", "category", "status", "quantity")
-            .where( {warehouse_id: req.params.id} );
+            .where({ warehouse_id: req.params.id });
         res.status(200).json(data);
     } catch (error) {
         res.status(400).send(`Error retrieving inventories from warehouse ${req.params.id}: ${error}`);

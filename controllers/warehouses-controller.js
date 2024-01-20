@@ -101,9 +101,23 @@ const getWarehouseInventory = async (req, res) => {
     }
 };
 
+const deleteWarehouse = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await knex('warehouses').where({ id }).del();
+        if (!deleted) {
+            return res.status(404).json({ message: 'Warehouse not found' });
+        }
+        res.status(200).json({ message: 'Warehouse deleted' });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to delete warehouse' });
+    }
+}
+
 module.exports = {
     createWarehouse,
     updateWarehouse,
     getWarehouseById,
-    getWarehouseInventory
+    getWarehouseInventory,
+    deleteWarehouse
 };

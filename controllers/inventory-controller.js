@@ -1,9 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
 
-// const index = async (_req, res) => {
-//     res.send("you've hit the /inventory page! there's nothing here yet")
-// };
-
 const index = async (_req, res) => {
     try {
         const data = await knex("inventories")
@@ -14,6 +10,41 @@ const index = async (_req, res) => {
         res.status(400).send(`Error retrieving from Inventories: ${error}`);
     }
 };
+
+const createItem = async (req, res) =>  {
+    let { warehouse_id, item_name, description, category, status, quantity } = req.body;
+
+    if (!warehouse_id || !item_name || !description || !category || !status || !quantity) {
+        res.status(400).json({
+            message: "Please provide item name, item description, category, status, quantity, and warehouse id in the request"
+        })
+    }
+
+    if (isNaN(quantity)) {
+        res.status(400).send({
+            message: "Please provide a numerical quantity"
+        });
+    }
+
+    try {
+        const result = await knex('inventories').insert(req.body);
+
+        const newInventoryId = result[0];
+
+        const createdInventoryItem = await knex
+            .select("id", "item_name", "description", "category", "status", "quantity", "warehouse_id")
+            .from("inventories")
+            .where({ id: newInventoryId });
+
+        res.status(201).json(createdInventoryItem);
+
+    } catch (error) {
+        res.status(500).json({
+            message: `Unable to create new inventory item: ${error}`
+        });
+    }
+}
+
 
 const editInventoryItem = async (req, res) => {
     let { warehouse_id, item_name, description, category, status, quantity } = req.body;
@@ -56,5 +87,6 @@ const editInventoryItem = async (req, res) => {
 
 module.exports = {
     index,
+    createItem,
     editInventoryItem
 };

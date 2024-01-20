@@ -27,13 +27,13 @@ const createItem = async (req, res) =>  {
     }
 
     try {
-        const result = await knex('inventory').insert(req.body);
+        const result = await knex('inventories').insert(req.body);
 
         const newInventoryId = result[0];
 
         const createdInventoryItem = await knex
             .select("id", "item_name", "description", "category", "status", "quantity", "warehouse_id")
-            .from("inventory")
+            .from("inventories")
             .where({ id: newInventoryId });
 
         res.status(201).json(createdInventoryItem);

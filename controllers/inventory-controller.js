@@ -15,6 +15,47 @@ const index = async (_req, res) => {
     }
 };
 
+const editInventoryItem = async (req, res) => {
+    let { warehouse_id, item_name, description, category, status, quantity } = req.body;
+    console.log(req.body)
+
+    if (!warehouse_id || !item_name || !description || !category || !status || !quantity) {
+        res.status(400).json({
+            message: "Please provide warehouse id, item name, description, category, status, and quantity in the request"
+        })
+    }
+
+    if (!(typeof quantity === "number" )) {
+        res.status(400).send({
+            message: "Quantity must be a numerical input."
+        })
+    }
+
+    try {
+        const rowsUpdated = await knex('inventories')
+            .where({ id: req.params.id })
+            .update(req.body);
+
+        if (rowsUpdated === 0) {
+            return res.status(404).json({
+                message: `Inventory item with ID ${req.params.id} not found`
+            });
+        }
+
+        const updatedInventoryItem = await knex("inventories")
+            .select("id", "warehouse_id", "item_name", "description", "category", "status", "quantity")
+            .where({ id: req.params.id });
+
+        res.status(200).json(updatedInventoryItem);
+
+    } catch (error) {
+        res.status(500).json({
+            message: `Unable to update invetory item with ID ${req.params.id}: ${error}`
+        })
+    }
+}
+
 module.exports = {
-    index
+    index,
+    editInventoryItem
 };

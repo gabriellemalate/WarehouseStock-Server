@@ -6,8 +6,9 @@ router
     .get(inventoryController.index)
     .post(inventoryController.createItem);
 
-// router
-//     .route("/:id")
+router
+    .route("/:id")
+    .put(inventoryController.editInventoryItem);
 //     .get(userController.findOne)
 //     .patch(userController.update)
 //     .delete(userController.remove);

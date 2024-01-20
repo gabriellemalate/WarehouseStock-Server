@@ -38,7 +38,7 @@ const editInventoryItem = async (req, res) => {
 
         if (rowsUpdated === 0) {
             return res.status(404).json({
-                message: `Inventory item with ID ${req.params.id} not found`
+                message: `Inventory item with ID ${req.params.id} was not found`
             });
         }
 

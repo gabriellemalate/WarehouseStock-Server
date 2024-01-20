@@ -34,7 +34,6 @@ const inventoryRoutes = require("./routes/inventory-routes");
 app.use("/inventory", inventoryRoutes);
 
 const warehousesRoutes = require("./routes/warehouses-routes");
-const router = require('./routes/inventory-routes');
 app.use('/warehouses', warehousesRoutes);
 
 // Spin up server

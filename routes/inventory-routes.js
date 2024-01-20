@@ -4,12 +4,16 @@ const inventoryController = require('../controllers/inventory-controller');
 router
     .route("/")
     .get(inventoryController.index)
-    // .get((_req, res) => res.send("you've hit the /inventory page"))
-    // .post(userController.add);
+    .post(inventoryController.createItem);
 
 router
     .route("/:id")
-    .delete(inventoryController.deleteItem);
+    .delete(inventoryController.deleteItem)
+    .put(inventoryController.editInventoryItem);
+//     .get(userController.findOne)
+//     .patch(userController.update)
+//     .delete(userController.remove);
+
 
 // router
 //     .route("/:id/posts")

@@ -18,7 +18,7 @@ const index = async (_req, res) => {
 const editInventoryItem = async (req, res) => {
     let { warehouse_id, item_name, description, category, status, quantity } = req.body;
 
-    if (!warehouse_id || !item_name || !description || !category || !status || !quantity) {
+    if (!warehouse_id || !item_name || !description || !category || !status || (!quantity && quantity !== 0)) {
         res.status(400).json({
             message: "Please provide warehouse id, item name, description, category, status, and quantity in the request"
         })

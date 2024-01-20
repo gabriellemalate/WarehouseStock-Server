@@ -1,9 +1,5 @@
 const knex = require("knex")(require("../knexfile"));
 
-// const index = async (_req, res) => {
-//     res.send("you've hit the /inventory page! there's nothing here yet")
-// };
-
 const index = async (_req, res) => {
     try {
         const data = await knex("inventories")
@@ -15,6 +11,11 @@ const index = async (_req, res) => {
     }
 };
 
+const createItem = async (req, res) =>  {
+
+}
+
 module.exports = {
-    index
+    index,
+    createItem
 };

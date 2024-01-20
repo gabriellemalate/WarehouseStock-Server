@@ -6,6 +6,7 @@ router.route('/')
     .post(warehouseController.createWarehouse);
 
 router.route('/:id')
+    .get(warehouseController.getWarehouseById)
     .put(warehouseController.updateWarehouse);
 
 router.route('/:id/inventories')

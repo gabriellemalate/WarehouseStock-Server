@@ -75,7 +75,20 @@ const updateWarehouse = async (req, res) => {
     }
 }
 
+const getWarehouseInventory = async (req, res) => {
+    try {
+        const data = await knex("inventories")
+            .join("warehouses", "warehouse_id", "warehouses.id")
+            .select("inventories.id", "item_name", "category", "status", "quantity")
+            .where( {warehouse_id: req.params.id} );
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).send(`Error retrieving inventories from warehouse ${req.params.id}: ${error}`);
+    }
+};
+
 module.exports = {
     createWarehouse,
     updateWarehouse,
+    getWarehouseInventory
 };

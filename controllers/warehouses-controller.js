@@ -101,9 +101,20 @@ const getWarehouseInventory = async (req, res) => {
     }
 };
 
+const getAllWarehouses = async (_req, res) => {
+    try {
+        const data = await knex("warehouses")
+            .select("id", "warehouse_name", "address", "city", "country", "contact_name", "contact_position", "contact_phone", "contact_email");
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).send(`Error retrieving inventories from all warehouses: ${error}`);
+    }
+};
+
 module.exports = {
     createWarehouse,
     updateWarehouse,
+    getAllWarehouses
     getWarehouseById,
     getWarehouseInventory
 };

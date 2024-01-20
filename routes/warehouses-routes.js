@@ -2,6 +2,7 @@ const router = require('express').Router();
 const warehouseController = require('../controllers/warehouses-controller');
 
 router.route('/')
+    .get(warehouseController.getAllWarehouses)
     .post(warehouseController.createWarehouse);
 
 router.route('/:id')

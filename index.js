@@ -8,6 +8,9 @@ const express = require("express");
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5050;
+const knex = require('./knexfile.js');
+
+
 
 // Configure our server
 app.use(cors());
@@ -16,7 +19,7 @@ app.use(express.json());
 
 // Print to console whenever anyone hits any endpoint on the server
 app.use((req, _res, next) => {
-    const moment = new Date(Date.now()) 
+    const moment = new Date(Date.now())
     console.log("hit for", req.originalUrl, "at", moment.toLocaleString('en-US', { timeZone: 'America/New_York' }));
     next();
 })
@@ -31,7 +34,11 @@ const inventoryRoutes = require("./routes/inventory-routes");
 app.use("/inventory", inventoryRoutes);
 
 const warehousesRoutes = require("./routes/warehouses-routes");
+const router = require('./routes/inventory-routes');
 app.use('/warehouses', warehousesRoutes);
 
 // Spin up server
 app.listen(PORT, () => console.log(`running at http://localhost:${PORT}`));
+
+
+

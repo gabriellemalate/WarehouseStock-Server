@@ -18,13 +18,13 @@ const index = async (_req, res) => {
 const editInventoryItem = async (req, res) => {
     let { warehouse_id, item_name, description, category, status, quantity } = req.body;
 
-    if (!warehouse_id || !item_name || !description || !category || !status || (!quantity && quantity !== 0)) {
+    if (!warehouse_id || !item_name || !description || !category || !status || !quantity) {
         res.status(400).json({
             message: "Please provide warehouse id, item name, description, category, status, and quantity in the request"
         })
     }
 
-    if (!(typeof quantity === "number")) {
+    if (isNaN(quantity)) {
         res.status(400).send({
             message: "Quantity must be a numerical input."
         })

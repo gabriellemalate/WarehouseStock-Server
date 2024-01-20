@@ -7,11 +7,9 @@ router
     // .get((_req, res) => res.send("you've hit the /inventory page"))
     // .post(userController.add);
 
-// router
-//     .route("/:id")
-//     .get(userController.findOne)
-//     .patch(userController.update)
-//     .delete(userController.remove);
+router
+    .route("/:id")
+    .delete(inventoryController.deleteItem);
 
 // router
 //     .route("/:id/posts")

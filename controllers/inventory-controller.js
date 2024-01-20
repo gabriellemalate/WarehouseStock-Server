@@ -15,6 +15,23 @@ const index = async (_req, res) => {
     }
 };
 
+const deleteItem = async (req, res) => {
+    const { id } = req.params;
+    console.log(`Attempting to delete item with id: ${id}`);
+    try {
+        const deleted = await knex('inventories').where({ id }).del();
+        console.log(`Delete operation result: ${deleted}`); 
+        if (!deleted) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+        res.status(200).json({ message: 'Item deleted' });
+    } catch (err) {
+        console.error('Error deleting item:', err); 
+        res.status(500).json({ message: 'Failed to delete item' });
+    }
+};
+
 module.exports = {
-    index
+    index,
+    deleteItem
 };

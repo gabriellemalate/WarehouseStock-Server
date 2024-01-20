@@ -17,7 +17,6 @@ const index = async (_req, res) => {
 
 const editInventoryItem = async (req, res) => {
     let { warehouse_id, item_name, description, category, status, quantity } = req.body;
-    console.log(req.body)
 
     if (!warehouse_id || !item_name || !description || !category || !status || !quantity) {
         res.status(400).json({
@@ -25,7 +24,7 @@ const editInventoryItem = async (req, res) => {
         })
     }
 
-    if (!(typeof quantity === "number" )) {
+    if (!(typeof quantity === "number")) {
         res.status(400).send({
             message: "Quantity must be a numerical input."
         })

@@ -5,12 +5,15 @@ router.route('/')
     .get(warehouseController.getAllWarehouses)
     .post(warehouseController.createWarehouse);
 
-router.route('/:id')
+router.route('/unique')
+    .get(warehouseController.getUniqueWarehouses);
+
+router.route('/:id')    
     .get(warehouseController.getWarehouseById)
     .put(warehouseController.updateWarehouse)
     .delete(warehouseController.deleteWarehouse);
 
-router.route('/:id/inventories')
+router.route('/:id/inventories')    
     .get(warehouseController.getWarehouseInventory);
-
+    
 module.exports = router;

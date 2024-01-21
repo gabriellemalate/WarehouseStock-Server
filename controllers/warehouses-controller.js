@@ -89,6 +89,7 @@ const getWarehouseById = async (req, res) => {
         res.status(500).json({ message: 'Failed to get warehouse' });
     }
 }
+
 const getWarehouseInventory = async (req, res) => {
     try {
         const data = await knex("inventories")
@@ -100,7 +101,6 @@ const getWarehouseInventory = async (req, res) => {
         res.status(400).send(`Error retrieving inventories from warehouse ${req.params.id}: ${error}`);
     }
 };
-
 
 const deleteWarehouse = async (req, res) => {
     try {
@@ -125,6 +125,17 @@ const getAllWarehouses = async (_req, res) => {
     }
 };
 
+const getUniqueWarehouses = async (_req, res) => {
+    try {
+        const data = await knex("warehouses")
+            .select("id")
+            .distinct("warehouse_name");
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).send(`Error retrieving unique warehouses: ${error}`);
+    }
+};
+
 
 module.exports = {
     createWarehouse,
@@ -132,5 +143,6 @@ module.exports = {
     getAllWarehouses,
     getWarehouseById,
     getWarehouseInventory,
+    getUniqueWarehouses,
     deleteWarehouse
 };

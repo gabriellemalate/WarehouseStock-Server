@@ -104,9 +104,21 @@ const editInventoryItem = async (req, res) => {
     }
 }
 
+const getUniqueCategories = async (_req, res) => {
+    try {
+        const data = await knex("inventories")
+            .distinct("category");
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(400).send(`Error retrieving unique categories: ${error}`);
+    }
+};
+
+
 module.exports = {
     index,
     createItem,
     getInventoryItem,
-    editInventoryItem
+    editInventoryItem,
+    getUniqueCategories
 };

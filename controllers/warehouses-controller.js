@@ -128,6 +128,7 @@ const getAllWarehouses = async (_req, res) => {
 const getUniqueWarehouses = async (_req, res) => {
     try {
         const data = await knex("warehouses")
+            .select("id")
             .distinct("warehouse_name");
         res.status(200).json(data);
     } catch (error) {

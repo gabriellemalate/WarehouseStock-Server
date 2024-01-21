@@ -19,4 +19,7 @@ router
 //     .route("/:id/posts")
 //     .get(userController.posts);
 
+    .get(inventoryController.getInventoryItem)
+    .put(inventoryController.editInventoryItem);
+
 module.exports = router;

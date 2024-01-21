@@ -63,6 +63,25 @@ const createItem = async (req, res) =>  {
     }
 }
 
+const getInventoryItem = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const item = await knex("inventories")
+        .where({"inventories.id": id}).first()
+        .join("warehouses", "warehouse_id", "warehouses.id")
+        .select("inventories.id", "warehouse_name", "item_name", "description", "category", "status", "quantity");
+
+        if (!item) {
+            // If the item with the specified ID is not found, send a 404 response
+            return res.status(404).json({ message: `Item with id ${req.params.id} not found` });
+        }
+
+        res.status(200).json(item);
+
+    } catch (error) {
+        res.status(500).send(`Error retrieving item with id ${req.params.id}: ${error}`);
+    }
+};
 
 const editInventoryItem = async (req, res) => {
     let { warehouse_id, item_name, description, category, status, quantity } = req.body;
@@ -107,5 +126,6 @@ module.exports = {
     index,
     createItem,
     deleteItem,
+    getInventoryItem,
     editInventoryItem
 };

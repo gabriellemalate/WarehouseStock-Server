@@ -8,13 +8,7 @@ router
 
 router
     .route("/:id")
+    .get(inventoryController.getInventoryItem)
     .put(inventoryController.editInventoryItem);
-//     .get(userController.findOne)
-//     .patch(userController.update)
-//     .delete(userController.remove);
-
-// router
-//     .route("/:id/posts")
-//     .get(userController.posts);
 
 module.exports = router;

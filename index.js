@@ -20,7 +20,7 @@ app.use(express.json());
 // Print to console whenever anyone hits any endpoint on the server
 app.use((req, _res, next) => {
     const moment = new Date(Date.now())
-    console.log("hit for", req.originalUrl, "at", moment.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    console.log("hit type", req.method, "for", req.originalUrl, "at", moment.toLocaleString('en-US', { timeZone: 'America/New_York' }));
     next();
 })
 
@@ -33,6 +33,7 @@ app.get("/", (_req, res) => {
 const inventoryRoutes = require("./routes/inventory-routes");
 app.use("/inventory", inventoryRoutes);
 
+// Set up routes for warehouses
 const warehousesRoutes = require("./routes/warehouses-routes");
 app.use('/warehouses', warehousesRoutes);
 

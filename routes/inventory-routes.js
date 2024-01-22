@@ -7,22 +7,11 @@ router
     .post(inventoryController.createItem);
 
 router.route('/unique')
-.get(inventoryController.getUniqueCategories);
+    .get(inventoryController.getUniqueCategories);
 
-router
-    .route("/:id")
-    .delete(inventoryController.deleteItem)
-    .put(inventoryController.editInventoryItem);
-//     .get(userController.findOne)
-//     .patch(userController.update)
-//     .delete(userController.remove);
-
-
-// router
-//     .route("/:id/posts")
-//     .get(userController.posts);
-
+router.route("/:id")
     .get(inventoryController.getInventoryItem)
-    .put(inventoryController.editInventoryItem);
+    .put(inventoryController.editInventoryItem)
+    .delete(inventoryController.deleteItem);
 
 module.exports = router;

@@ -35,7 +35,7 @@ app.use("/api/inventories", inventoryRoutes);
 
 // Set up routes for warehouses
 const warehousesRoutes = require("./routes/warehouses-routes");
-app.use('api/warehouses', warehousesRoutes);
+app.use('/api/warehouses', warehousesRoutes);
 
 // Spin up server
 app.listen(PORT, () => console.log(`running at http://localhost:${PORT}`));

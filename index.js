@@ -31,11 +31,11 @@ app.get("/", (_req, res) => {
 
 // Set up routes for inventories
 const inventoryRoutes = require("./routes/inventory-routes");
-app.use("/inventory", inventoryRoutes);
+app.use("/api/inventories", inventoryRoutes);
 
 // Set up routes for warehouses
 const warehousesRoutes = require("./routes/warehouses-routes");
-app.use('/warehouses', warehousesRoutes);
+app.use('api/warehouses', warehousesRoutes);
 
 // Spin up server
 app.listen(PORT, () => console.log(`running at http://localhost:${PORT}`));
